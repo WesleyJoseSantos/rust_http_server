@@ -4,8 +4,13 @@ use std::{
     net::{TcpListener, TcpStream},
 };
 
+const SERVER_URL: &'static str = "192.168.27.215:7878";
+const COMMAND_FILE_PATH: &'static str = "status_led.txt";
+
 fn main() {
-    let listener = TcpListener::bind("192.168.27.182:7878").unwrap();
+    let listener = TcpListener::bind(SERVER_URL).unwrap();
+
+    println!("{}", std::env::current_dir().unwrap().display());
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
@@ -20,7 +25,7 @@ fn handle_connection(mut stream: TcpStream) {
 
     if request_line == "GET / HTTP/1.1" {
         let status_line = "HTTP/1.1 200 OK";
-        let contents = fs::read_to_string("C:\\Users\\BINAR\\OneDrive\\Documentos\\GitHub\\training\\rust\\http_server\\src\\statusLed.txt").unwrap();
+        let contents = fs::read_to_string(COMMAND_FILE_PATH).unwrap();
         let length = contents.len();
 
         let response = format!(
@@ -28,8 +33,6 @@ fn handle_connection(mut stream: TcpStream) {
         );
 
         stream.write_all(response.as_bytes()).unwrap();
-
-        println!("{}\n", contents);
     } else {
         // some other request
     }
