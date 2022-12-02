@@ -5,7 +5,7 @@ use std::{
 };
 
 const SERVER_URL: &'static str = "192.168.27.215:7878";
-const COMMAND_FILE_PATH: &'static str = "status_led.txt";
+const COMMAND_FILENAME: &'static str = "status_led.txt";
 
 fn main() {
     let listener = TcpListener::bind(SERVER_URL).unwrap();
@@ -25,7 +25,7 @@ fn handle_connection(mut stream: TcpStream) {
 
     if request_line == "GET / HTTP/1.1" {
         let status_line = "HTTP/1.1 200 OK";
-        let contents = fs::read_to_string(COMMAND_FILE_PATH).unwrap();
+        let contents = fs::read_to_string(COMMAND_FILENAME).unwrap();
         let length = contents.len();
 
         let response = format!(
