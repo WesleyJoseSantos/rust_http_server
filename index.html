@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>  
+    <div>
+        <h1 style="text-align: center;">Linguagens de Programação</h1>
+    </div>
+    <div style="text-align: center; margin-top: 50px;">
+        <img src="https://seeklogo.com/images/C/CEFET_-_MG-logo-715CEA28CB-seeklogo.com.png" alt="" srcset="">
+    </div>
+    <div style="text-align: center; margin-top: 40px;">
+        <button onclick="sendRequest('on')">Ligar</button>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        <button onclick="sendRequest('off')">Desligar</button>
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        <button onclick="sendRequest('blink')">Piscar</button>
+    </div>
+    <div>
+        <h2 style="text-align: center;">RUST Http Server</h1>
+    </div>
+</body>
+<script>
+    function sendRequest(req) {
+        var http = new XMLHttpRequest()
+        http.open('POST', '/status_led', true);
+        http.send(req);
+    }
+</script>
+
+</html>
